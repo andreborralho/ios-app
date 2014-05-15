@@ -15,6 +15,10 @@
                         {
                             "xml": "<feature name=\"NetworkStatus\"><param name=\"ios-package\" value=\"CDVConnection\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -22,6 +26,12 @@
             "framework": {
                 "parents": {
                     "SystemConfiguration.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "AudioToolbox.framework": [
                         {
                             "xml": "true",
                             "count": 1
@@ -36,6 +46,9 @@
             "PACKAGE_NAME": "com.festivall.festivall"
         },
         "org.apache.cordova.network-information": {
+            "PACKAGE_NAME": "com.festivall.festivall"
+        },
+        "org.apache.cordova.dialogs": {
             "PACKAGE_NAME": "com.festivall.festivall"
         }
     },
