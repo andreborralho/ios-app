@@ -4,7 +4,7 @@ function createShowsContainer(festival_id){
 
     db.transaction(function (tx){
         tx.executeSql('SELECT SHOWS.*, STAGES.NAME AS stage_name, DAYS.DATE AS day_date ' +
-            'FROM SHOWS INNER JOIN STAGES ON STAGES.ID = SHOWS.STAGE_ID INNER JOIN DAYS ON DAYS.ID = SHOWS.DAY_ID ' +
+            'FROM SHOWS LEFT JOIN STAGES ON STAGES.ID = SHOWS.STAGE_ID LEFT JOIN DAYS ON DAYS.ID = SHOWS.DAY_ID ' +
             'WHERE SHOWS.FESTIVAL_ID='+festival_id +' ORDER BY SHOWS.NAME', [], queryShowsSuccess, errorQueryCB);
     }, errorCB);
 }
