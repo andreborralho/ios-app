@@ -20,11 +20,10 @@ function queryShowVideosSuccess(tx, results){
                 var video_id = video.id;
 
                 $('#band_videos_scroller').append(''+
-                        '<div id="video_' + video_id + '">' +
-                        '<h3 class="video_name">' + video_name + '</h3>' +
-                        '<iframe width="'+video_url+'" height="200" src="http://www.youtube.com/embed/'+video_url+'?showinfo=0" frameborder="0" allowfullscreen></iframe>'+
-                        '</div>'
-                );
+                    '<div id="video_' + video_id + '">' +
+                    '<h3 class="video_name">' + video_name + '</h3>' +
+                    '<iframe width="'+video_url+'" height="200" src="http://www.youtube.com/embed/'+video_url+'?showinfo=0" frameborder="0" allowfullscreen></iframe>'+
+                    '</div>');
             }
         else
             $('#band_videos_scroller').html('<div class="padded"><p>' + dictionary[localStorage['language']]['no_videos_available_yet'] + '</p></div>');

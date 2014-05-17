@@ -159,10 +159,6 @@ function queryInfoSuccess(tx, results) {
                         }
                     });
                 });
-                console.log($("#info_carousel").getStyleObject().height);
-                console.log($("#weather_page").getStyleObject().height);
-                console.log($("#weather_wrapper").getStyleObject().height);
-                console.log($("#weather_scroller").getStyleObject().height);
             },
             error: function(model, response){
                 $('#weather_scroller').append('' +

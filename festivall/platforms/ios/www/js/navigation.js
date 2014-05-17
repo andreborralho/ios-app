@@ -147,7 +147,9 @@ function bindClickToNavBar(nav_items, carousel){
     for(var i=0; i<nav_items.length; i++){
         nav_item = nav_items[i];
 
-        (function (i, nav_item, nav_items, carousel){
+        //console.log(carousel.id);
+
+        (function (i, nav_item, nav_items, carouselx){
             $(nav_item).unbind().bind('click', function(){
                 swipe_bar_list.find('a').removeClass('current');
                 $(nav_items[i]).addClass('current');
@@ -159,6 +161,7 @@ function bindClickToNavBar(nav_items, carousel){
                 else
                     swipe_bar_list.removeClass('first last').addClass('middle').css('margin-left', '-' + nav_width + 'px');
 
+                console.log(carouselx.id+ " "+carousel.id);
                 carousel.swipeTo(i, 200);
             });
         })(i, nav_item, nav_items, carousel);

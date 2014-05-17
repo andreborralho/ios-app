@@ -146,12 +146,11 @@ body {
 }
 .scroll_wrapper {
     max-height: 100%;
-    height: 100%;
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
-.scroll_wrapper >div{
-
+.scroll_wrapper_navbar {
+    max-height: 93% !important;
 }
 .horizontal_scroll_wrapper {
     max-width: 100%;

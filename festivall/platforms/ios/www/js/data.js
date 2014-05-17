@@ -33,7 +33,7 @@ function onDeviceReady(){
         },
         error: function(model, response) {
             if(localStorage["firstRun"] == undefined)
-                alert(dictionary[localStorage['language']]['you_need_internet_connection']);
+                navigator.notification.alert(dictionary[localStorage['language']]['you_need_internet_connection'], null, dictionary[localStorage['language']]['info'], 'Ok');
 
             createFestivalsContainer();
         }
@@ -290,11 +290,11 @@ function successCB() {
 
 // Transaction error callback
 function errorCB(err) {
-    alert("Error processing SQL: " + err + ", " + err.message + ", " + err.code);
-    console.log("Error processing SQL: " + err.code + " : " + err.message);
+    //alert("Error processing SQL: " + err + ", " + err.message + ", " + err.code);
+    //console.log("Error processing SQL: " + err.code + " : " + err.message);
 }
 
 function errorQueryCB(tx, err){
-    alert("Error processing SQL query: " + err + ", " + err.message + ", " + err.code);
-    console.log("Error processing SQL query: " + err.code + " : " + err.message);
+    //alert("Error processing SQL query: " + err + ", " + err.message + ", " + err.code);
+    //console.log("Error processing SQL query: " + err.code + " : " + err.message);
 }

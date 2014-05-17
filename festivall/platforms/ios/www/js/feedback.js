@@ -10,7 +10,7 @@ function createFeedbackContainer(){
     });
 
     if(navigator.network.connection.type == Connection.NONE)
-        alert(dictionary[localStorage['language']]['you_need_internet_connection']);
+        navigator.notification.alert(dictionary[localStorage['language']]['you_need_internet_connection'], null, dictionary[localStorage['language']]['feedback'], 'Ok');
 
     $('#feedback h2').text(dictionary[localStorage['language']]['feedback_title']);
     $('#feedback p').text(dictionary[localStorage['language']]['feedback_text']);
@@ -27,14 +27,14 @@ function submitFeedback(){
     var text = $('#input_feedback_text').val();
 
     if(name == "")
-        alert(dictionary[localStorage['language']]['you_need_to_insert_your_name']);
+        navigator.notification.alert(dictionary[localStorage['language']]['you_need_to_insert_your_name'], null, dictionary[localStorage['language']]['feedback'], 'Ok');
 
     else if(text == "")
-        alert(dictionary[localStorage['language']]['you_need_to_speak_about_something']);
+        navigator.notification.alert(dictionary[localStorage['language']]['you_need_to_speak_about_something'], null, dictionary[localStorage['language']]['feedback'], 'Ok');
 
     else
         $.post("http://festivall.eu/feedbacks", {name: name, text: text, email: email}).done(function( data ) {
             $('#input_feedback_text').val('');
-            alert('Obrigado (Thank you!) =)');
+            navigator.notification.alert('Obrigado (Thank you!) =)', null, dictionary[localStorage['language']]['feedback'], 'Ok');
         });
 }
