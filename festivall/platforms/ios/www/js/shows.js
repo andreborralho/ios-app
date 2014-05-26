@@ -35,14 +35,14 @@ function queryShowsSuccess(tx, results) {
             show_day = show.day_date.slice(8,10);
 
             if(show_name_letter != show_name_previous_letter){
-                $('#shows_page_list').append('<li id="show_letter_' + show_name_letter +'"></li>');
+                $('#shows_page_list').append('<li id="show_letter_' + show_name_letter.charCodeAt(0) +'"></li>');
 
-                $('#show_letter_' + show_name_letter).append(
+                $('#show_letter_' + show_name_letter.charCodeAt(0)).append(
                         '<header class="list_header row"><span>' + show_name_letter + '</span></header>' +
-                        '<ul id="show_list_letter_' + show_name_letter +'" class="list"></ul>');
+                        '<ul id="show_list_letter_' + show_name_letter.charCodeAt(0) +'" class="list"></ul>');
             }
 
-            $('#show_list_letter_'+show_name_letter).append(
+            $('#show_list_letter_'+show_name_letter.charCodeAt(0)).append(
                     '<li id="show_' + show_id + '" class="row">' +
                     '<div class="column fixed bdr_r">' +
                     '<span class="show_date">' + show_day + " " + month + '</span>' +
