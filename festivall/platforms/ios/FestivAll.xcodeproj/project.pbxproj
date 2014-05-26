@@ -539,7 +539,7 @@
 				);
 				PRODUCT_NAME = FestivAll;
 				PROVISIONING_PROFILE = "5836A9AD-13A9-44D1-90B8-C7139E746C6E";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -573,7 +573,7 @@
 				);
 				PRODUCT_NAME = FestivAll;
 				PROVISIONING_PROFILE = "5836A9AD-13A9-44D1-90B8-C7139E746C6E";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -603,7 +603,7 @@
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
 					"\"$(BUILT_PRODUCTS_DIR)\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -622,6 +622,7 @@
 				PROVISIONING_PROFILE = "5836A9AD-13A9-44D1-90B8-C7139E746C6E";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
@@ -652,7 +653,7 @@
 					"\"$(OBJROOT)/UninstalledProducts/include\"",
 					"\"$(BUILT_PRODUCTS_DIR)\"",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -671,6 +672,7 @@
 				PROVISIONING_PROFILE = "5836A9AD-13A9-44D1-90B8-C7139E746C6E";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
