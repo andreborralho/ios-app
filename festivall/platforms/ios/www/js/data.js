@@ -20,12 +20,13 @@ function onDeviceReady(){
 
     //Conexao à base de dados do servidor
     $.ajax({
-        url: "http://festivall.eu",
-        dataType:"html",
+        url: "http://festivall.eu/festivals.json",
+        dataType:"json",
         timeout: 8000,
-        success:function (changes) {
-            if(localStorage["firstRun"] == undefined || localStorage["firstRun"] == "true"){
+        success:function (data) {
+            if (data['migration_version'] != localStorage["migration_version"]) {
                 db.transaction(populateDB, errorCB, successCB);
+                localStorage.setItem("migration_version", data['migration_version']);
                 localStorage.setItem("firstRun", true);
             }
             else if(localStorage["firstRun"] == "false")
@@ -248,6 +249,7 @@ function insertData(data){
         setLanguageVariable('1');
         //Portugal as default country
         localStorage.setItem('country_id', 1);
+        //espera 1seg pelo render do HTML, senao dá erro (fix por causa da merda dos callbacks)
         setTimeout(createFestivalsContainer(), 1000);
     }
 }
