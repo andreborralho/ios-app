@@ -113,9 +113,9 @@ function createBeforeFestival(festival, days, diff, status){
 
     if(festival.text === null)
         $('#festival_price').text(dictionary[localStorage['language']]['price'] + ": ---");
-    else{
+    else
         $('#festival_price').text(dictionary[localStorage['language']]['price'] + ": " + festival.text);
-    }
+
 
     $('#festival_poster').attr("src", festival.logo);
 
@@ -126,10 +126,11 @@ function createBeforeFestival(festival, days, diff, status){
         var countdown_days = String(dhms.split(':')[0]);
 
         var festival_countdown_days_selector = $('#festival_countdown_days');
+        countdown_days = parseInt(countdown_days) + 1;
         festival_countdown_days_selector.text(countdown_days);
 
         //numero de digitos (falta 1 / 10 / 100 dias)
-        switch (countdown_days.length) {
+        switch (countdown_days.toString().length) {
             case 1:
                 festival_countdown_days_selector.addClass('one');
                 break;
@@ -161,7 +162,6 @@ function createBeforeFestival(festival, days, diff, status){
     }
 
     addFestivalDays(days, festival_days_selector);
-
     bindClickToNavBottom("before", festival);
 }
 
