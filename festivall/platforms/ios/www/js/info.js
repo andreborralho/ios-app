@@ -25,7 +25,8 @@ function createInfoContainer(festival_id){
     db.transaction(function (tx) {
         tx.executeSql('SELECT FESTIVALS.*, TRANSLATIONS.* ' +
             'FROM FESTIVALS LEFT JOIN TRANSLATIONS ON FESTIVALS.ID = TRANSLATIONS.FESTIVAL_ID ' +
-            'WHERE FESTIVALS.ID='+festival_id + ' AND TRANSLATIONS.LANGUAGE_ID='+localStorage['language_id'],
+            'AND TRANSLATIONS.LANGUAGE_ID='+localStorage['language_id'] + ' ' +
+            'WHERE FESTIVALS.ID='+festival_id,
             [], queryInfoSuccess, errorCB);
     }, errorCB);
 
@@ -40,19 +41,28 @@ function queryInfoSuccess(tx, results) {
     var festivals = results.rows;
     var festival = results.rows.item(0);
     var info_texts = '';
+    var tickets_scroller_selector = $('#tickets_scroller');
+    var transports_scroller_selector = $('#transports_scroller');
 
     for (var i=0; i<festivals.length; i++){
-        info_texts = festivals.item(i).text.replace(/\r\n/g, "<br>");
+        if(festivals.item(i).text)
+            info_texts = festivals.item(i).text.replace(/\r\n/g, "<br>");
 
         switch (festivals.item(i).method_name){
             case 'tickets_info':
-                $('#tickets_scroller').html(info_texts);
+                tickets_scroller_selector.html(info_texts);
                 break;
             case 'transports_info':
-                $('#transports_scroller').html(info_texts);
+                transports_scroller_selector.html(info_texts);
                 break;
         }
+        info_texts = '';
     }
+
+    if (tickets_scroller_selector.is(':empty'))
+        tickets_scroller_selector.html(dictionary[localStorage['language']]['description_not_available_yet']);
+    if (transports_scroller_selector.is(':empty'))
+        transports_scroller_selector.html(dictionary[localStorage['language']]['description_not_available_yet']);
 
     var latitude = festival.latitude;
     var longitude = festival.longitude;
