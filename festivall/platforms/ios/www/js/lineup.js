@@ -128,10 +128,9 @@ function buildLineup(stages, days){
                                 if(day_i == (days_length-1) && s == (stages_length-1) && days_length > 4)
                                     $('#lineup_days_buttons').addClass('horizontal_scroll_wrapper');
 
-                            },errorQueryCB);
+                            }, errorQueryCB);
                     }, errorCB);
-                })(day,stages[s],stages.length, s, i, days_length);
-
+                })(day,stages[s], stages.length, s, i, days_length);
         }
     }
     else{
@@ -166,11 +165,8 @@ function finishLineupStage(day, stages, days_length, carousel){
     var numeric_month = day.date.slice(5,7);
     var month = changeNumberToMonthAbrev(numeric_month);
 
-
-    $('#lineup_days_buttons').append(''+
-        '<li id="lineup_day_' + day.id + '_button" class="column">' +
-        '<a class="item">' +  show_day + ' ' + month + '</a>' +
-        '</li>');
+    $('#lineup_days_buttons').append('<li id="lineup_day_' + day.id + '_button" class="column">' +
+        '<a class="item">' +  show_day + ' ' + month + '</a></li>');
 
 
     //Resize the lineup buttons according to their number
