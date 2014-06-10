@@ -234,9 +234,7 @@ function createDuringFestival(festival, days){
                     $('#festival_during_price_span').text(festival.text);
                 }
 
-
                 $('#festival_during_poster').attr("src", festival.logo);
-
                 $('#festival_during_shows').empty();
 
                 if(stages_length > 0){
@@ -348,7 +346,7 @@ function bindClickToNavBottom(festival_status, festival){
     });
 
     $('#'+festival_status+'_map_button').text(dictionary[localStorage['language']]['map']).unbind().bind('click', function(){
-        createMapContainer(festival.map);
+        createMapContainer(festival);
         changeContainers("#map", current_festival_name, dictionary[localStorage['language']]['map']);
     });
 
