@@ -22,7 +22,6 @@ function queryFestivalsSuccess(tx, results) {
         localStorage.setItem("firstRun", "false");
         $('#installer').removeClass('visible');
     }
-    incrementHistory("#festivals");
     $('#festivals_buttons').empty();
 
     var festivals_length = results.rows.length;
@@ -35,6 +34,8 @@ function queryFestivalsSuccess(tx, results) {
     }
 
     appendCountryToFestivals(festivals.item(0).country_id);
+    changeContainers('#festivals', '', '');
+
 }
 
 function checkIfAfterFestival(festival_id, ended_festivals, i, festivals_length){
@@ -73,6 +74,93 @@ function addFestivalToList(festival){
     $('#festival_'+festival.id).unbind().bind('click', function() {
         createFestivalContainer(this.id.replace("festival_", ""));
     });
+
+    //Check if the logo file exists
+    var filename = festival.name + '.jpg';
+    var hasLogo = localStorage[festival.name];
+    var url = festival.logo;
+    //Ajax call to download logo if it is not stored
+    if(hasLogo == undefined || festival.logo != hasLogo){
+        console.log('CHECKING LOGO: old logo :' + hasLogo + ', festival.Logo : ' + festival.logo);
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+            fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry)  {
+                //Might not sync correctly first time because of lag in syncronization
+                var file_path = fileEntry.toURL();
+                var fileTransfer = new FileTransfer();
+                fileTransfer.download(
+                    url,
+                    file_path,
+                    function(entry) {
+                        console.log('SUCCESS DOWNLOAD LOGO FROM WITH URL:' + url);
+                        localStorage[festival.name] = url;
+                        addLogo(festival, file_path);  //Reads from the file
+                    },
+                    function(error) {
+                        console.log('ERROR DOWNLOAD LOGO FROM WITH URL:' + url);
+                        if(hasLogo != undefined)
+                            addLogo(festival, file_path);
+                    }
+                );
+            });
+        });
+    }
+    else{  //Reads from the file
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+            fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry)  {
+                var file_path = fileEntry.toURL();
+                addLogo(festival, file_path);
+            });
+        });
+    }
+    //Cache the map of the festival
+    cacheMap(festival);
+}
+
+//fail reading
+function fail(evt) {
+    console.log(' 000.ERROR : ' + evt.target.error.code);
+}
+
+function addLogo(festival, file_path){
+    var dummy = makeid();
+    $('#festival_' + festival.id ).empty().append('<a href="#"><img class="festival_logo_img" src="' + file_path + '?dummy=' + dummy + '"></a>');;
+}
+
+
+function makeid(){
+    var text = "";
+    var possible = "0123456789";
+    for( var i=0; i < 5; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+}
+
+function cacheMap(festival){
+    //Check if the MAP file exists
+    var filename = festival.name + '_map.jpg';
+    var hasMap = localStorage[filename];
+    var url = festival.map;
+    //Ajax call to download logo if it is not stored
+    if(festival.map != hasMap || hasMap == undefined ){
+        console.log('CHECKING MAP: old map :' + hasMap + ', festival.map : ' + festival.map);
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fileSystem) {
+            fileSystem.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
+                var file_path = fileEntry.toURL();
+                var fileTransfer = new FileTransfer();
+                fileTransfer.download(
+                    url,
+                    file_path,
+                    function(entry) {
+                        console.log('SUCCESS DOWNLOAD MAP FROM WITH URL:' + url);
+                        localStorage[festival.name + '_map.jpg'] = url;
+                    },
+                    function(error) {
+                        console.log('ERROR MAP FROM WITH FAIL, URL:' + url);
+                    }
+                );
+            });
+        });
+    }
 }
 
 function appendCountryToFestivals(country_id){
@@ -85,9 +173,9 @@ function appendCountryToFestivals(country_id){
 
 // Callback for the festivals query
 function queryFestivalsCountrySuccess(tx, results) {
+    $('.festival_list .item').height($('.festival_list .item').width());
+
     var festivals_country = results.rows.item(0);
     $('#festivals_country_title span').text(festivals_country.name);
     $('#festivals_country_flag').attr('src', festivals_country.flag);
-
-    changeContainers('#festivals', '', '');
 }
