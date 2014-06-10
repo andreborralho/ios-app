@@ -44,6 +44,9 @@ function queryInfoSuccess(tx, results) {
     var tickets_scroller_selector = $('#tickets_scroller');
     var transports_scroller_selector = $('#transports_scroller');
 
+    tickets_scroller_selector.empty();
+    transports_scroller_selector.empty();
+
     for (var i=0; i<festivals.length; i++){
         if(festivals.item(i).text)
             info_texts = festivals.item(i).text.replace(/\r\n/g, "<br>");
